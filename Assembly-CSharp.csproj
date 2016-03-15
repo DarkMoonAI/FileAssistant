@@ -45,8 +45,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Configs\CS\7zip\Common\CRC.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Common\CommandLineParser.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Common\InBuffer.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Common\OutBuffer.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LZ\IMatchFinder.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LZ\LzBinTree.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LZ\LzInWindow.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LZ\LzOutWindow.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LZMA\LzmaBase.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LZMA\LzmaDecoder.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LZMA\LzmaEncoder.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LzmaAlone\LzmaAlone.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LzmaAlone\LzmaBench.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LzmaAlone\Properties\AssemblyInfo.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\LzmaAlone\Properties\Resources.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\RangeCoder\RangeCoder.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\RangeCoder\RangeCoderBit.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\Compress\RangeCoder\RangeCoderBitTree.cs" />
+     <Compile Include="Assets\Configs\CS\7zip\ICoder.cs" />
+     <Compile Include="Assets\Scripts\CompressTest.cs" />
      <Compile Include="Assets\Scripts\DontDestroyObj.cs" />
      <Compile Include="Assets\Scripts\Initor.cs" />
+     <None Include="Assets\test.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/unity5.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

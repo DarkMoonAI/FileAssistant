@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Initor : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Application.LoadLevelAsync ("FileTest");
+		SceneManager.LoadSceneAsync ("FileTest");
+		//Application.LoadLevelAsync ("FileTest");
 	}
 	
 	// Update is called once per frame
