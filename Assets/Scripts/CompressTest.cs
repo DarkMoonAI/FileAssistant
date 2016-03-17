@@ -8,6 +8,8 @@ using System;
 public class CompressTest : MonoBehaviour {
 	public Button btn_compress;
 	public Button btn_decompress;
+	public compressOrDecompressTargetClass compressTarget;
+	public compressOrDecompressTargetClass decompressTarget;
 	// Use this for initialization
 	void Start () {
 		UnityAction btnAction = new UnityAction (OnClick_compress);
@@ -16,10 +18,10 @@ public class CompressTest : MonoBehaviour {
 		btn_decompress.onClick.AddListener(btnAction1);
 	}
 	void OnClick_decompress(){
-		DecompressFileLZMA (Application.dataPath+"/test.zip",Application.dataPath+"/test.txt");
+		DecompressFileLZMA (Application.dataPath+decompressTarget.targetName,Application.dataPath+decompressTarget.resultName);
 	}
 	void OnClick_compress(){
-		CompressFileLZMA (Application.dataPath+"/test.txt",Application.dataPath+"/test.zip");
+		CompressFileLZMA (Application.dataPath+compressTarget.targetName ,Application.dataPath+compressTarget.resultName);
 	}
 	private static void CompressFileLZMA(string inFile, string outFile)
 	{
@@ -60,5 +62,16 @@ public class CompressTest : MonoBehaviour {
 		output.Flush();
 		output.Close();
 		input.Close();
+	}
+}
+[Serializable]
+public class compressOrDecompressTargetClass{
+	public string targetName;
+	public string resultName;
+	public bool isDecompress;
+	public compressOrDecompressTargetClass(string targetName,string resultName,bool isDecompress){
+		this.targetName = targetName;
+		this.resultName = resultName;
+		this.isDecompress = isDecompress;
 	}
 }
