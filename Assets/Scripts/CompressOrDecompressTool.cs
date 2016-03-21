@@ -5,6 +5,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.IO;
 using System;
 using System.Collections.Generic;  
+using System.Text;
 public class CompressOrDecompressTool : MonoBehaviour {
 	private static CompressOrDecompressTool m_instance;
 	public static CompressOrDecompressTool Instance{
