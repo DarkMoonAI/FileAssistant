@@ -1,10 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CompressTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CompressOrDecompressTool.cs">
     <Files>
-      <File FileName="Assets\Scripts\CompressTest.cs" Line="18" Column="2" />
-      <File FileName="Assets\Scripts\Initor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DontDestroyObj.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CompressTest.cs" Line="42" Column="3" />
+      <File FileName="Assets\Scripts\CompressOrDecompressTool.cs" Line="87" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
