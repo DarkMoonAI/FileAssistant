@@ -53,6 +53,7 @@ public class CompressOrDecompressTool : MonoBehaviour {
 		System.IO.FileStream ZipFile = System.IO.File.Open(ZipedFile,FileMode.OpenOrCreate);  
 		ZipOutputStream ZipStream = new ZipOutputStream(ZipFile);  
 		ZipEntry ZipEntry = new ZipEntry(filename);  
+		ZipEntry.IsUnicodeText = true;
 		ZipStream.PutNextEntry(ZipEntry);  
 		ZipStream.SetLevel(CompressionLevel);  
 		byte[] buffer = new byte[2048];  
@@ -109,10 +110,9 @@ public class CompressOrDecompressTool : MonoBehaviour {
 			unZipDir += "/";  
 		if (!Directory.Exists (unZipDir))
 			Directory.CreateDirectory (unZipDir);  
-
 		using (ZipInputStream s = new ZipInputStream (File.OpenRead (zipFilePath))) {  
 
-			ZipEntry theEntry;  
+			ZipEntry theEntry;
 			while ((theEntry = s.GetNextEntry ()) != null) {  
 				string directoryName = Path.GetDirectoryName (theEntry.Name);  
 				string fileName = Path.GetFileName (theEntry.Name);  
