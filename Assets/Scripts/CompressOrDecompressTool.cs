@@ -26,7 +26,7 @@ public class CompressOrDecompressTool : MonoBehaviour {
 		//如果文件没有找到，则报错   
 		if (!System.IO.File.Exists(FileToZip))  
 		{  
-			Debug.Log("文件：" + FileToZip + "没有找到！");
+			DebugTool.Instance.Log("文件：" + FileToZip + "没有找到！");
 			return false;
 		}  
 
@@ -64,7 +64,7 @@ public class CompressOrDecompressTool : MonoBehaviour {
 		}  
 		catch (System.Exception ex)  
 		{    
-			Debug.Log(ex.Message);
+			DebugTool.Instance.Log(ex.Message);
 			return false;
 		}  
 		finally  
@@ -101,21 +101,24 @@ public class CompressOrDecompressTool : MonoBehaviour {
 			zipoutputstream.SetLevel(CompressionLevel);  
 			Crc32 crc = new Crc32();  
 			Hashtable fileList = CommonTool.Instance.getAllFies(DirToZip);  
-			foreach (DictionaryEntry item in fileList)  
-			{  
-				FileStream fs = File.OpenRead(item.Key.ToString());  
-				byte[] buffer = new byte[fs.Length];  
-				fs.Read(buffer, 0, buffer.Length);  
-				ZipEntry entry = new ZipEntry(item.Key.ToString().Substring(DirToZip.Length + 1));  
-				entry.DateTime = (DateTime)item.Value;  
-				entry.Size = fs.Length;  
-				fs.Close();  
-				crc.Reset();  
-				crc.Update(buffer);  
-				entry.Crc = crc.Value;  
-				zipoutputstream.PutNextEntry(entry);  
-				zipoutputstream.Write(buffer, 0, buffer.Length);  
-			}  
+			if (fileList != null) {
+				foreach (DictionaryEntry item in fileList)  
+				{  
+					FileStream fs = File.OpenRead(item.Key.ToString());  
+					byte[] buffer = new byte[fs.Length];  
+					fs.Read(buffer, 0, buffer.Length);  
+					ZipEntry entry = new ZipEntry(item.Key.ToString().Substring(DirToZip.Length + 1));  
+					entry.IsUnicodeText = true;
+					entry.DateTime = (DateTime)item.Value;  
+					entry.Size = fs.Length;  
+					fs.Close();  
+					crc.Reset();  
+					crc.Update(buffer);  
+					entry.Crc = crc.Value;  
+					zipoutputstream.PutNextEntry(entry);  
+					zipoutputstream.Write(buffer, 0, buffer.Length);  
+				}  
+			}
 		}  
 	}  
 
@@ -132,11 +135,11 @@ public class CompressOrDecompressTool : MonoBehaviour {
 	/// <returns>解压是否成功</returns> 
 	public bool decompressFileWithGzip(string zipFilePath, string unZipDir){
 		if (zipFilePath == string.Empty) {   
-			Debug.Log ("压缩文件不能为空！");
+			DebugTool.Instance.Log ("压缩文件不能为空！");
 			return false;
 		}  
 		if (!File.Exists (zipFilePath)) {   
-			Debug.Log ("压缩文件不存在！");
+			DebugTool.Instance.Log ("压缩文件不存在！");
 			return false;
 		}  
 		//解压文件夹为空时默认与压缩文件同一级目录下，跟压缩文件同名的文件夹  

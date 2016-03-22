@@ -65,7 +65,8 @@ public class CommonTool : MonoBehaviour {
 		DirectoryInfo fileDire = new DirectoryInfo(dir);  
 		if (!fileDire.Exists)  
 		{  
-			throw new System.IO.FileNotFoundException("目录:" + fileDire.FullName + "没有找到!");  
+			DebugTool.Instance.Log ("目录:" + fileDire.FullName + "没有找到!");
+			return null;  
 		}  
 
 		this.getAllDirFiles(fileDire, FilesList);  
@@ -81,7 +82,8 @@ public class CommonTool : MonoBehaviour {
 		DirectoryInfo fileDire = new DirectoryInfo(dir);
 		if (!fileDire.Exists)  
 		{  
-			throw new System.IO.FileNotFoundException("目录:" + fileDire.FullName + "没有找到!");  
+			DebugTool.Instance.Log ("目录:" + fileDire.FullName + "没有找到!");
+			return null;
 		}  
 
 		this.getAllDirFiles(fileDire, FilesList); 
@@ -95,7 +97,8 @@ public class CommonTool : MonoBehaviour {
 		DirectoryInfo fileDire = new DirectoryInfo(dir);
 		if (!fileDire.Exists)  
 		{  
-			throw new System.IO.FileNotFoundException("目录:" + fileDire.FullName + "没有找到!");  
+			DebugTool.Instance.Log ("目录:" + fileDire.FullName + "没有找到!");
+			return null;
 		}  
 		return fileDire.GetDirectories();
 	}

@@ -25,23 +25,35 @@ public class CompressTest : MonoBehaviour {
 		voidDelegateList = new List<voidDelegate> ();
 		voidDelegateList.Add (OnClick_compress);
 		voidDelegateList.Add (OnClick_decompress);
+		voidDelegateList.Add (OnClick_compressDir);
 		foreach (UIButtonBase btn in btns) {
-			btn.onClickDelegate += voidDelegateList [btn.flag];
+			if (btn.flag < voidDelegateList.Count) {
+				btn.onClickDelegate += voidDelegateList [btn.flag];
+			} else {
+				DebugTool.Instance.Log (btn.name+"'s flag error");
+			}
 		}
-		Debug.Log ("Init Buttons");
+		DebugTool.Instance.Log ("Init Buttons");
 	}
 	void DeinitButtons(){
 		foreach (UIButtonBase btn in btns) {
-			btn.onClickDelegate -= voidDelegateList [btn.flag];
+			if (btn.flag < voidDelegateList.Count) {
+				btn.onClickDelegate -= voidDelegateList [btn.flag];
+			} else {
+				DebugTool.Instance.Log (btn.name+"'s flag error");
+			}
 		}
 		voidDelegateList.Clear ();
-		Debug.Log ("Deinit Buttons");
+		DebugTool.Instance.Log ("Deinit Buttons");
 	}
 	void OnClick_compress(){
 		CompressFileGZIP (Application.dataPath + compressTarget.targetName, Application.dataPath + compressTarget.resultName,1);
 	}
 	void OnClick_decompress(){
 		DecompressFileGZIP (Application.dataPath + decompressTarget.targetName, Application.dataPath + decompressTarget.resultName);
+	}
+	void OnClick_compressDir(){
+		CompressDirGZIP(Application.dataPath +compressDirTarget.targetName ,Application.dataPath +compressDirTarget.resultName,1);
 	}
 	#region GZIP
 	private static void CompressFileGZIP(string FileToZip, string ZipedFile, int CompressionLevel)
@@ -50,6 +62,9 @@ public class CompressTest : MonoBehaviour {
 	}
 	private static void DecompressFileGZIP(string zipFilePath, string unZipDir){
 		CompressOrDecompressTool.Instance.decompressFileWithGzip (zipFilePath,unZipDir);
+	}
+	private static void CompressDirGZIP(string DirToZip, string ZipedFile, int CompressionLevel){
+		CompressOrDecompressTool.Instance.ZipDir (DirToZip, ZipedFile, CompressionLevel);
 	}
 	#endregion 
 }
