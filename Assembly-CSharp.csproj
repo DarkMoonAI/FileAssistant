@@ -69,6 +69,7 @@
      <Compile Include="Assets\Scripts\CompressTest.cs" />
      <Compile Include="Assets\Scripts\DontDestroyObj.cs" />
      <Compile Include="Assets\Scripts\Initor.cs" />
+     <Compile Include="Assets\Scripts\UIButtonBase.cs" />
      <None Include="Assets\test.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/unity5.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

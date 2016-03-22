@@ -26,7 +26,6 @@ public class CompressOrDecompressTool : MonoBehaviour {
 		//如果文件没有找到，则报错   
 		if (!System.IO.File.Exists(FileToZip))  
 		{  
-			//throw new System.IO.FileNotFoundException("文件：" + FileToZip + "没有找到！"); 
 			Debug.Log("文件：" + FileToZip + "没有找到！");
 			return false;
 		}  
@@ -40,11 +39,6 @@ public class CompressOrDecompressTool : MonoBehaviour {
 		{  
 			ZipedFile = ZipedFile + ".zip";  
 		}  
-
-		////如果指定位置目录不存在，创建该目录  
-		//string zipedDir = ZipedFile.Substring(0,ZipedFile.LastIndexOf("/"));  
-		//if (!Directory.Exists(zipedDir))  
-		//    Directory.CreateDirectory(zipedDir);  
 
 		//被压缩文件名称  
 		string filename = FileToZip.Substring(FileToZip.LastIndexOf("/") + 1);  
@@ -69,8 +63,7 @@ public class CompressOrDecompressTool : MonoBehaviour {
 			}  
 		}  
 		catch (System.Exception ex)  
-		{  
-			//throw ex;  
+		{    
 			Debug.Log(ex.Message);
 			return false;
 		}  
@@ -82,6 +75,51 @@ public class CompressOrDecompressTool : MonoBehaviour {
 		}  
 		return true;
 	}
+
+	/// <summary>  
+	/// 压缩文件夹的方法  
+	/// </summary>  
+	/// <param name="DirToZip">压缩目标目录</param> 
+	/// <param name="ZipedFile">压缩后所得的文件</param> 
+	/// <param name="CompressionLevel">压缩率0（无压缩）-9（压缩率最高）</param>
+	public void ZipDir(string DirToZip, string ZipedFile, int CompressionLevel)  
+	{  
+		//压缩文件为空时默认与压缩文件夹同一级目录  
+		if (ZipedFile == string.Empty)  
+		{  
+			ZipedFile = DirToZip.Substring(DirToZip.LastIndexOf("/") + 1);  
+			ZipedFile = DirToZip.Substring(0, DirToZip.LastIndexOf("/")) +"//"+ ZipedFile+".zip";  
+		}  
+
+		if (Path.GetExtension(ZipedFile) != ".zip")  
+		{  
+			ZipedFile = ZipedFile + ".zip";  
+		}  
+
+		using (ZipOutputStream zipoutputstream = new ZipOutputStream(File.Create(ZipedFile)))  
+		{  
+			zipoutputstream.SetLevel(CompressionLevel);  
+			Crc32 crc = new Crc32();  
+			Hashtable fileList = CommonTool.Instance.getAllFies(DirToZip);  
+			foreach (DictionaryEntry item in fileList)  
+			{  
+				FileStream fs = File.OpenRead(item.Key.ToString());  
+				byte[] buffer = new byte[fs.Length];  
+				fs.Read(buffer, 0, buffer.Length);  
+				ZipEntry entry = new ZipEntry(item.Key.ToString().Substring(DirToZip.Length + 1));  
+				entry.DateTime = (DateTime)item.Value;  
+				entry.Size = fs.Length;  
+				fs.Close();  
+				crc.Reset();  
+				crc.Update(buffer);  
+				entry.Crc = crc.Value;  
+				zipoutputstream.PutNextEntry(entry);  
+				zipoutputstream.Write(buffer, 0, buffer.Length);  
+			}  
+		}  
+	}  
+
+
 	#endregion 
 
 	#region decompress
@@ -93,13 +131,11 @@ public class CompressOrDecompressTool : MonoBehaviour {
 	/// <param name="err">出错信息</param>  
 	/// <returns>解压是否成功</returns> 
 	public bool decompressFileWithGzip(string zipFilePath, string unZipDir){
-		if (zipFilePath == string.Empty) {  
-			//throw new Exception("压缩文件不能为空！");  
+		if (zipFilePath == string.Empty) {   
 			Debug.Log ("压缩文件不能为空！");
 			return false;
 		}  
-		if (!File.Exists (zipFilePath)) {  
-			//throw new System.IO.FileNotFoundException("压缩文件不存在！");  
+		if (!File.Exists (zipFilePath)) {   
 			Debug.Log ("压缩文件不存在！");
 			return false;
 		}  

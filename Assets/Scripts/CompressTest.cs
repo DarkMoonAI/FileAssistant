@@ -1,29 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using SevenZip.Compression.LZMA;
 using System;
 using ICSharpCode.SharpZipLib.Checksums;  
 using ICSharpCode.SharpZipLib.Zip;
 public class CompressTest : MonoBehaviour {
-	public Button btn_compress;
-	public Button btn_decompress;
+	public List<UIButtonBase> btns;
+	public UIButtonBase btn_compressDir;
 	public compressOrDecompressTargetClass compressTarget;
 	public compressOrDecompressTargetClass decompressTarget;
+	public compressOrDecompressTargetClass compressDirTarget;
+	private List<voidDelegate> voidDelegateList; 
 	// Use this for initialization
 	void Start () {
-		UnityAction btnAction = new UnityAction (OnClick_compress);
-		UnityAction btnAction1 = new UnityAction (OnClick_decompress);
-		btn_compress.onClick.AddListener(btnAction);
-		btn_decompress.onClick.AddListener(btnAction1);
+		InitButtons ();
 	}
-	void OnClick_decompress(){
-		DecompressFileGZIP (Application.dataPath + decompressTarget.targetName, Application.dataPath + decompressTarget.resultName);
+	void OnDisable(){
+		DeinitButtons ();
+	}
+	void InitButtons(){
+		voidDelegateList = new List<voidDelegate> ();
+		voidDelegateList.Add (OnClick_compress);
+		voidDelegateList.Add (OnClick_decompress);
+		foreach (UIButtonBase btn in btns) {
+			btn.onClickDelegate += voidDelegateList [btn.flag];
+		}
+		Debug.Log ("Init Buttons");
+	}
+	void DeinitButtons(){
+		foreach (UIButtonBase btn in btns) {
+			btn.onClickDelegate -= voidDelegateList [btn.flag];
+		}
+		voidDelegateList.Clear ();
+		Debug.Log ("Deinit Buttons");
 	}
 	void OnClick_compress(){
 		CompressFileGZIP (Application.dataPath + compressTarget.targetName, Application.dataPath + compressTarget.resultName,1);
+	}
+	void OnClick_decompress(){
+		DecompressFileGZIP (Application.dataPath + decompressTarget.targetName, Application.dataPath + decompressTarget.resultName);
 	}
 	#region GZIP
 	private static void CompressFileGZIP(string FileToZip, string ZipedFile, int CompressionLevel)

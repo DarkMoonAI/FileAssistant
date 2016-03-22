@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Text;
-
+using System.Collections.Generic;
+using System.IO;
+public delegate void voidDelegate();
 public class CommonTool : MonoBehaviour {
 	private static CommonTool m_instance;
 	public static CommonTool Instance{
@@ -10,6 +12,7 @@ public class CommonTool : MonoBehaviour {
 	void Awake(){
 		m_instance = this;
 	}
+	#region zhuanma
 	/// <summary>
 	/// GB2312转换成UTF8
 	/// </summary>
@@ -49,4 +52,81 @@ public class CommonTool : MonoBehaviour {
 		//返回转换后的字符   
 		return gb2312.GetString(utf);
 	}
+	#endregion 
+
+	#region file
+	/// <summary>  
+	/// 获取所有文件  
+	/// </summary>  
+	/// <returns></returns>  
+	public Hashtable getAllFies(string dir)  
+	{  
+		Hashtable FilesList = new Hashtable();  
+		DirectoryInfo fileDire = new DirectoryInfo(dir);  
+		if (!fileDire.Exists)  
+		{  
+			throw new System.IO.FileNotFoundException("目录:" + fileDire.FullName + "没有找到!");  
+		}  
+
+		this.getAllDirFiles(fileDire, FilesList);  
+		this.getAllDirsFiles(fileDire.GetDirectories(), FilesList);  
+		return FilesList;  
+	}
+	/// <summary>
+	/// 获取一个文件夹下的所有的文件
+	/// 不包含子文件夹
+	/// </summary>
+	public Hashtable getAllDirsFiles(string dir){
+		Hashtable FilesList = new Hashtable();  
+		DirectoryInfo fileDire = new DirectoryInfo(dir);
+		if (!fileDire.Exists)  
+		{  
+			throw new System.IO.FileNotFoundException("目录:" + fileDire.FullName + "没有找到!");  
+		}  
+
+		this.getAllDirFiles(fileDire, FilesList); 
+		return FilesList;
+	}
+	/// <summary>
+	/// 获取一个文件夹下的所有的文件夹数组
+	/// 不包含子文件夹
+	/// </summary>
+	public DirectoryInfo[] getAllDirs(string dir){
+		DirectoryInfo fileDire = new DirectoryInfo(dir);
+		if (!fileDire.Exists)  
+		{  
+			throw new System.IO.FileNotFoundException("目录:" + fileDire.FullName + "没有找到!");  
+		}  
+		return fileDire.GetDirectories();
+	}
+	/// <summary>  
+	/// 获取一个文件夹下的所有文件夹里的文件  
+	/// </summary>  
+	/// <param name="dirs"></param>  
+	/// <param name="filesList"></param>  
+	private void getAllDirsFiles(DirectoryInfo[] dirs, Hashtable filesList)  
+	{  
+		foreach (DirectoryInfo dir in dirs)  
+		{  
+			foreach (FileInfo file in dir.GetFiles("*.*"))  
+			{  
+				filesList.Add(file.FullName, file.LastWriteTime);  
+			}  
+			this.getAllDirsFiles(dir.GetDirectories(), filesList);  
+		}  
+	}  
+	/// <summary>  
+	/// 获取一个文件夹下的文件 
+	/// 不包含子文件夹 
+	/// </summary>  
+	/// <param name="strDirName">目录名称</param>  
+	/// <param name="filesList">文件列表HastTable</param>  
+	private void getAllDirFiles(DirectoryInfo dir, Hashtable filesList)  
+	{  
+		foreach (FileInfo file in dir.GetFiles("*.*"))  
+		{  
+			filesList.Add(file.FullName, file.LastWriteTime);  
+		}  
+	}  
+	#endregion 
 }
