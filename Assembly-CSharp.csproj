@@ -73,7 +73,7 @@
      <Compile Include="Assets\Scripts\CompressTest.cs" />
      <Compile Include="Assets\Scripts\DebugTool.cs" />
      <Compile Include="Assets\Scripts\Initor.cs" />
-     <None Include="Assets\test.txt" />
+     <None Include="Assets\test\test.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/unity5.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
