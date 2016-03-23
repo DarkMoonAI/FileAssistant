@@ -47,13 +47,25 @@ public class CompressTest : MonoBehaviour {
 		DebugTool.Instance.Log ("Deinit Buttons");
 	}
 	void OnClick_compress(){
+		#if UNITY_EDITOR
 		CompressFileGZIP (Application.dataPath + compressTarget.targetName, Application.dataPath + compressTarget.resultName,1);
+		#else
+		CompressFileGZIP (Application.dataPath +"/.."+compressTarget.targetName, Application.dataPath +"/.."+ compressTarget.resultName,1);
+		#endif
 	}
 	void OnClick_decompress(){
+		#if UNITY_EDITOR
 		DecompressFileGZIP (Application.dataPath + decompressTarget.targetName, Application.dataPath + decompressTarget.resultName);
+		#else
+		DecompressFileGZIP (Application.dataPath +"/.." + decompressTarget.targetName, Application.dataPath +"/.." + decompressTarget.resultName);
+		#endif
 	}
 	void OnClick_compressDir(){
+		#if UNITY_EDITOR
 		CompressDirGZIP(Application.dataPath +compressDirTarget.targetName ,Application.dataPath +compressDirTarget.resultName,1);
+		#else
+		CompressDirGZIP(Application.dataPath +"/.." +compressDirTarget.targetName ,Application.dataPath +"/.."+compressDirTarget.resultName,1);
+		#endif
 	}
 	#region GZIP
 	private static void CompressFileGZIP(string FileToZip, string ZipedFile, int CompressionLevel)

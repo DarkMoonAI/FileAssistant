@@ -68,11 +68,13 @@
      <Compile Include="Assets\Scripts\Base\DontDestroyObj.cs" />
      <Compile Include="Assets\Scripts\Base\UIButtonBase.cs" />
      <Compile Include="Assets\Scripts\Base\UIImageForScroll.cs" />
+     <Compile Include="Assets\Scripts\Btn_SceneChange.cs" />
      <Compile Include="Assets\Scripts\CommonTool.cs" />
      <Compile Include="Assets\Scripts\CompressOrDecompressTool.cs" />
      <Compile Include="Assets\Scripts\CompressTest.cs" />
      <Compile Include="Assets\Scripts\DebugTool.cs" />
      <Compile Include="Assets\Scripts\Initor.cs" />
+     <Compile Include="Assets\Scripts\MessageShowText.cs" />
      <None Include="Assets\test\test.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/unity5.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

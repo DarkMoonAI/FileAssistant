@@ -84,6 +84,11 @@ public class CompressOrDecompressTool : MonoBehaviour {
 	/// <param name="CompressionLevel">压缩率0（无压缩）-9（压缩率最高）</param>
 	public void ZipDir(string DirToZip, string ZipedFile, int CompressionLevel)  
 	{  
+		if (!System.IO.Directory.Exists (DirToZip)) {
+			DebugTool.Instance.Log("文件夹：" + DirToZip + "没有找到！");
+			return ;
+		}
+		DebugTool.Instance.Log (ZipedFile);
 		//压缩文件为空时默认与压缩文件夹同一级目录  
 		if (ZipedFile == string.Empty)  
 		{  
@@ -104,10 +109,22 @@ public class CompressOrDecompressTool : MonoBehaviour {
 			if (fileList != null) {
 				foreach (DictionaryEntry item in fileList)  
 				{  
+					DebugTool.Instance.Log (item.Key.ToString ());
 					FileStream fs = File.OpenRead(item.Key.ToString());  
+					DebugTool.Instance.Log ("s1");
 					byte[] buffer = new byte[fs.Length];  
-					fs.Read(buffer, 0, buffer.Length);  
-					ZipEntry entry = new ZipEntry(item.Key.ToString().Substring(DirToZip.Length + 1));  
+					fs.Read(buffer, 0, buffer.Length); 
+					ZipEntry entry;
+					int i;
+					if (item.Key.ToString ().EndsWith ("\\")) {
+						i = item.Key.ToString ().Substring (0, item.Key.ToString ().Length - 1).LastIndexOf ("\\");
+						entry = new ZipEntry(item.Key.ToString ().Substring (i));
+					}else{
+						string s = item.Key.ToString ();
+						i=s.LastIndexOf("\\");
+						entry = new ZipEntry(item.Key.ToString().Substring(i));
+					}
+					//ZipEntry entry = new ZipEntry(item.Key.ToString().Substring(DirToZip.Length + 1));  
 					entry.IsUnicodeText = true;
 					entry.DateTime = (DateTime)item.Value;  
 					entry.Size = fs.Length;  
@@ -119,6 +136,7 @@ public class CompressOrDecompressTool : MonoBehaviour {
 					zipoutputstream.Write(buffer, 0, buffer.Length);  
 				}  
 			}
+			zipoutputstream.Close ();
 		}  
 	}  
 

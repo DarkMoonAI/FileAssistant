@@ -1,12 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CommonTool.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CompressTest.cs">
     <Files>
-      <File FileName="Assets\Scripts\CommonTool.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CompressTest.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CompressOrDecompressTool.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DebugTool.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Base\AutoScrollviewControl.cs" Line="48" Column="23" />
+      <File FileName="Assets\Scripts\MessageShowText.cs" Line="15" Column="43" />
+      <File FileName="Assets\Scripts\Initor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Base\AutoScrollviewControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CompressTest.cs" Line="67" Column="99" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
