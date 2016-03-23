@@ -64,8 +64,10 @@
      <Compile Include="Assets\Configs\CS\7zip\Compress\RangeCoder\RangeCoderBit.cs" />
      <Compile Include="Assets\Configs\CS\7zip\Compress\RangeCoder\RangeCoderBitTree.cs" />
      <Compile Include="Assets\Configs\CS\7zip\ICoder.cs" />
+     <Compile Include="Assets\Scripts\Base\AutoScrollviewControl.cs" />
      <Compile Include="Assets\Scripts\Base\DontDestroyObj.cs" />
      <Compile Include="Assets\Scripts\Base\UIButtonBase.cs" />
+     <Compile Include="Assets\Scripts\Base\UIImageForScroll.cs" />
      <Compile Include="Assets\Scripts\CommonTool.cs" />
      <Compile Include="Assets\Scripts\CompressOrDecompressTool.cs" />
      <Compile Include="Assets\Scripts\CompressTest.cs" />
